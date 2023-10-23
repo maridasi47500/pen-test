@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Programminglanguage:</strong>
+  <%= @hack.programminglanguage.try(:name) %>
+</p>
+
+<p>
+  <strong>:</strong>
+  <%= @hack.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @hack.description %>
+</p>
+
+<p>
+  <strong>Difficult:</strong>
+<p><%(1..5).each do |x|%><span id="star<%=x%>" style="background-color:<%=@hack.difficult >= x ? "yellow" : "grey"%>;">&#9733;</span><%end%></p>
+</p>
+
+<p>my hack</p>
+<%if @hack.scripts.length > 0%>
+<ul>
+<%@hack.scripts.each do |x|%>
+<li><%=x.programminglanguage.try(:name)%> avec <%=x.libraries.collect{|h|h.name}.to_sentence%> : <%=x.description%><%=link_to "voir ce hack",x%></li>
+<%end%>
+</ul>
+<%else%>
+<p>quel sont mes hacks ?</p>
+<%end%>
+<%= render "scripts/form", script: Script.new(hack_id: @hack.id) %> |
+<%= link_to 'Edit', edit_hack_path(@hack) %> |
+<%= link_to 'Back', hacks_path %>

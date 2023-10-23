@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hacks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Programminglanguage</th>
+      <th></th>
+      <th>Description</th>
+      <th>Difficult</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hacks.each do |hack| %>
+      <tr>
+        <td><%= hack.programminglanguage.try(:name) %></td>
+
+        <td><%= hack.name %></td>
+        <td><%= hack.description %></td>
+        <td><%(1..5).each do |x|%><span id="star<%=x%>" style="background-color:<%=hack.difficult >= x ? "yellow" : "grey"%>;">&#9733;</span><%end%></td>
+        <td><%= link_to 'Show', hack %></td>
+        <td><%= link_to 'Edit', edit_hack_path(hack) %></td>
+        <td><%= link_to 'Destroy', hack, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Hack', new_hack_path %>

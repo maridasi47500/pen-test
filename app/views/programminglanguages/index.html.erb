@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Programminglanguages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @programminglanguages.each do |programminglanguage| %>
+      <tr>
+        <td><%= programminglanguage.name %></td>
+        <td><%= link_to 'Show', programminglanguage %></td>
+        <td><%= link_to 'Edit', edit_programminglanguage_path(programminglanguage) %></td>
+        <td><%= link_to 'Destroy', programminglanguage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Programminglanguage', new_programminglanguage_path %>

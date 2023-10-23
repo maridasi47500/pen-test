@@ -1,0 +1,27 @@
+<%= form_with(model: library, local: true) do |form| %>
+  <% if library.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(library.errors.count, "error") %> prohibited this library from being saved:</h2>
+
+      <ul>
+        <% library.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :programminglanguage_id %>
+    <%= form.select :programminglanguage_id, options_for_select(Programminglanguage.all.collect{|x|[x.name,x.id]}), {include_blank: "choisir un langage"} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

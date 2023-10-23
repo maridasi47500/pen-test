@@ -1,0 +1,38 @@
+<%= form_with(model: hack, local: true) do |form| %>
+  <% if hack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hack.errors.count, "error") %> prohibited this hack from being saved:</h2>
+
+      <ul>
+        <% hack.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :programminglanguage_id %>
+    <%= form.select :programminglanguage_id, options_for_select(Programminglanguage.all.collect{|x|[x.name,x.id]}), {include_blank: "choisir un langage"} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="field">
+<p><%(1..5).each do |x|%><span id="star<%=x%>" style="background-color:<%=hack.difficult >= x ? "yellow" : "grey"%>;" onclick="<%(x < 5 ? ((x+1)..5) : []).each do |y|%>document.getElementById('star<%=y%>').style.backgroundColor='grey';<%end%><%(1..x).each do |y|%>document.getElementById('star<%=y%>').style.backgroundColor='yellow';<%end%>document.getElementById('mydifficult').value='<%=x%>';">&#9733;</span><%end%></p>
+    <%= form.label :difficult %>
+    <%= form.hidden_field :difficult,id:"mydifficult" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

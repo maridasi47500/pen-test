@@ -1,0 +1,32 @@
+<%= form_with(model: script, local: true) do |form| %>
+  <% if script.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(script.errors.count, "error") %> prohibited this script from being saved:</h2>
+
+      <ul>
+        <% script.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.hidden_field :hack_id %>
+  <div class="field">
+    <%= form.label :programminglanguage_id %>
+    <%= form.select :programminglanguage_id, Programminglanguage.all.collect{|x|[x.name,x.id]},{include_blank:""}, {onchange: "$('.mylibrary').hide();$('.language'+this.value).show();"} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :library_ids %>
+    <%= form.select :library_ids, Library.all.collect{|x|[x.name,x.id,:class => "mylibrary language#{x.programminglanguage_id}", :style => "display: #{x.programminglanguage_id == script.programminglanguage_id ? "block" : "none"};"]},{}, {multiple:true,size:10} %>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
